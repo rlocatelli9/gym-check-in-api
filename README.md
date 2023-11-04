@@ -2,6 +2,11 @@
 
 GymPass style app
 
+if you want to run the docker with WSL2, you need to start the service before than.
+```sh
+sudo service docker start
+```
+
 ## RF (Requisitos Funcionais)
 
 - [] Should be able to register
