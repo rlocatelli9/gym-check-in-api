@@ -1,6 +1,4 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { hash } from 'bcryptjs'
-import { prisma } from 'src/lib/prisma'
 import { z } from 'zod'
 import RegisterService from 'src/services/Users/register'
 
