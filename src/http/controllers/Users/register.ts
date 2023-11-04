@@ -31,7 +31,7 @@ export default async function Register(
       })
     }
 
-    return reply.status(400).send()
+    throw error
   }
 
   return reply.status(201).send()
