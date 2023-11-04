@@ -1,6 +1,5 @@
 import { hash } from 'bcryptjs'
-import { prisma } from 'src/lib/prisma'
-import PrismaUsersRepository from 'src/repositories/prisma-users-repository'
+import { IPrismaUsersRepository } from 'src/repositories/prisma-users-repository'
 
 type RegisterServiceProps = {
   name: string
@@ -8,27 +7,25 @@ type RegisterServiceProps = {
   password: string
 }
 
-export default async function RegisterService({
-  name,
-  email,
-  password,
-}: RegisterServiceProps) {
-  const passwordHash = await hash(password, 6)
+// SOLID
+// D - Dependency Inversion Principle
 
-  const userExists = await prisma.user.findUnique({
-    where: {
+export default class ServiceUserRegister {
+  constructor(private usersRepository: IPrismaUsersRepository) {}
+
+  async execute({ name, email, password }: RegisterServiceProps) {
+    const passwordHash = await hash(password, 6)
+
+    const userExists = await this.usersRepository.findUnique(email)
+
+    if (userExists) {
+      throw new Error('E-mail already exists')
+    }
+
+    await this.usersRepository.create({
+      name,
       email,
-    },
-  })
-
-  if (userExists) {
-    throw new Error('E-mail already exists')
+      password_hash: passwordHash,
+    })
   }
-
-  const prismaUsersRepository = new PrismaUsersRepository()
-  await prismaUsersRepository.create({
-    name,
-    email,
-    password_hash: passwordHash,
-  })
 }
