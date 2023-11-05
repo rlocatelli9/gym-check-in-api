@@ -1,9 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import ServiceUserRegister from './register'
 import { compare } from 'bcryptjs'
-import FakeUsersRepository from 'src/repositories/fake/fake.users-repository'
+import FakeUsersRepository from 'src/repositories/fake/fake-users-repository'
 import { UserAlreadyExistsError } from '../errors/user-already-exists'
-import { object, string } from 'zod'
 
 describe('register use case', () => {
   it("should be able to crypt the user's password", async () => {
