@@ -1,26 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import ServiceUserRegister from './register'
 import { compare } from 'bcryptjs'
+import FakeUsersRepository from 'src/repositories/fake/fake.users-repository'
+import { UserAlreadyExistsError } from '../errors/user-already-exists'
+import { object, string } from 'zod'
 
 describe('register use case', () => {
-  it("The user's password need be crypt", async () => {
-    const serviceUserRegister = new ServiceUserRegister({
-      async create(data) {
-        return {
-          id: 'user-1',
-          name: data.name,
-          email: data.email,
-          password_hash: data.password_hash,
-          created_at: new Date(),
-          updated_at: new Date(),
-          deleted_at: null,
-        }
-      },
-
-      async findByEmail() {
-        return null
-      },
-    })
+  it("should be able to crypt the user's password", async () => {
+    const fakeUsersRepository = new FakeUsersRepository()
+    const serviceUserRegister = new ServiceUserRegister(fakeUsersRepository)
 
     const {
       user: { password_hash: passwordHash },
@@ -33,5 +21,37 @@ describe('register use case', () => {
     const isPasswordCorrectlyHashed = await compare('abc123', passwordHash)
 
     expect(isPasswordCorrectlyHashed).toBeTruthy()
+  })
+
+  it('should not be able to create user with duplicated e-mail', async () => {
+    const fakeUsersRepository = new FakeUsersRepository()
+    const serviceUserRegister = new ServiceUserRegister(fakeUsersRepository)
+
+    const email = 'user@test'
+
+    async function createUser() {
+      await serviceUserRegister.execute({
+        name: 'user',
+        email,
+        password: 'abc123',
+      })
+    }
+
+    await createUser()
+
+    await expect(createUser()).rejects.toBeInstanceOf(UserAlreadyExistsError)
+  })
+
+  it('should be able to register user', async () => {
+    const fakeUsersRepository = new FakeUsersRepository()
+    const serviceUserRegister = new ServiceUserRegister(fakeUsersRepository)
+
+    const { user } = await serviceUserRegister.execute({
+      name: 'user',
+      email: 'user@test',
+      password: 'abc123',
+    })
+
+    expect(user.id).toBeTypeOf('string')
   })
 })
