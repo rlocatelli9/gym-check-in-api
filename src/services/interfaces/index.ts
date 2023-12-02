@@ -9,3 +9,12 @@ export type RegisterServiceProps = {
 export type RegisterServiceResponse = {
   user: User
 }
+
+export type AuthenticateServiceRequest = {
+  email: string
+  password: string
+}
+
+export type AuthenticateServiceResponse = {
+  user: User
+}
