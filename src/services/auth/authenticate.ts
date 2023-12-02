@@ -6,7 +6,7 @@ import {
 import { InvalidCredentialsError } from '../errors/invalid-credentials'
 import { compare } from 'bcryptjs'
 
-export class AuthenticateService {
+export default class AuthenticateService {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute({
