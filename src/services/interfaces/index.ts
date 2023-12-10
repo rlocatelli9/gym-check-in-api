@@ -1,20 +1,19 @@
 import { User } from '@prisma/client'
 
-export type RegisterServiceProps = {
-  name: string
+type PatternRequest = {
   email: string
   password: string
 }
 
-export type RegisterServiceResponse = {
+type PatternResponse = {
   user: User
 }
 
-export type AuthenticateServiceRequest = {
-  email: string
-  password: string
-}
+export type RegisterServiceProps = PatternRequest & { name: string }
+export type RegisterServiceResponse = PatternResponse
 
-export type AuthenticateServiceResponse = {
-  user: User
-}
+export type AuthenticateServiceRequest = PatternRequest
+export type AuthenticateServiceResponse = PatternResponse
+
+export type GetUserProfileServiceRequest = { userId: string }
+export type GetUserProfileServiceResponse = PatternResponse
