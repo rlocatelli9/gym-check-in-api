@@ -1,17 +1,22 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import ServiceUserRegister from './register'
 import { compare } from 'bcryptjs'
 import FakeUsersRepository from 'src/repositories/fake/fake-users-repository'
 import { UserAlreadyExistsError } from '../errors/user-already-exists'
 
-describe('register use case', () => {
-  it("should be able to crypt the user's password", async () => {
-    const fakeUsersRepository = new FakeUsersRepository()
-    const serviceUserRegister = new ServiceUserRegister(fakeUsersRepository)
+let fakeUsersRepository: FakeUsersRepository
+let sut: ServiceUserRegister
 
+describe('register use case', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository()
+    sut = new ServiceUserRegister(fakeUsersRepository)
+  })
+
+  it("should be able to crypt the user's password", async () => {
     const {
       user: { password_hash: passwordHash },
-    } = await serviceUserRegister.execute({
+    } = await sut.execute({
       name: 'user',
       email: 'user@test',
       password: 'abc123',
@@ -23,13 +28,10 @@ describe('register use case', () => {
   })
 
   it('should not be able to create user with duplicated e-mail', async () => {
-    const fakeUsersRepository = new FakeUsersRepository()
-    const serviceUserRegister = new ServiceUserRegister(fakeUsersRepository)
-
     const email = 'user@test'
 
     async function createUser() {
-      await serviceUserRegister.execute({
+      await sut.execute({
         name: 'user',
         email,
         password: 'abc123',
@@ -42,10 +44,7 @@ describe('register use case', () => {
   })
 
   it('should be able to register user', async () => {
-    const fakeUsersRepository = new FakeUsersRepository()
-    const serviceUserRegister = new ServiceUserRegister(fakeUsersRepository)
-
-    const { user } = await serviceUserRegister.execute({
+    const { user } = await sut.execute({
       name: 'user',
       email: 'user@test',
       password: 'abc123',
