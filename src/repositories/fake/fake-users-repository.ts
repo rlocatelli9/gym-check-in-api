@@ -1,12 +1,13 @@
 import type { Prisma, User } from '@prisma/client'
 import { IUsersRepository } from '../interfaces'
+import { randomUUID } from 'node:crypto'
 
 export default class FakeUsersRepository implements IUsersRepository {
   private users: Array<User> = []
 
   async create(data: Prisma.UserCreateInput) {
     const user = {
-      id: data?.id || 'user-1',
+      id: data?.id || randomUUID(),
       name: data.name,
       email: data.email,
       password_hash: data.password_hash,

@@ -1,4 +1,4 @@
-import { User } from '@prisma/client'
+import { CheckIn, User } from '@prisma/client'
 
 type PatternRequest = {
   email: string
@@ -17,3 +17,13 @@ export type AuthenticateServiceResponse = PatternResponse
 
 export type GetUserProfileServiceRequest = { userId: string }
 export type GetUserProfileServiceResponse = PatternResponse
+
+export type CheckInServiceProps = {
+  userId: string
+  gymId: string
+  userLatitude: number
+  userLongitude: number
+}
+export type CheckInServiceResponse = {
+  checkIn: CheckIn
+}

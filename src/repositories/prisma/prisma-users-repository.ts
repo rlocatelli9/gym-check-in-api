@@ -28,6 +28,10 @@ export default class PrismaUsersRepository implements IUsersRepository {
       },
     })
 
+    if (!user) {
+      return null
+    }
+
     return user
   }
 }
