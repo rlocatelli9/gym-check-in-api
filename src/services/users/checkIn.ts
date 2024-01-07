@@ -3,8 +3,12 @@ import {
   IGymsRepository,
 } from 'src/repositories/interfaces'
 import { CheckInServiceProps, CheckInServiceResponse } from '../interfaces'
-import { ResourceNotFoundError } from '../errors/resource-not-found'
 import { getDistanceBetweenCoords } from 'src/utils/get-distance-between-coords'
+import {
+  MaxDistanceError,
+  MaxNumberOfCheckInsError,
+  ResourceNotFoundError,
+} from '../errors'
 
 const MAX_DISTANCE_KILOMETERS = 0.1
 
@@ -37,10 +41,8 @@ export default class ServiceCheckInRegister {
       },
     })
 
-    console.log(distance)
-
     if (distance > MAX_DISTANCE_KILOMETERS) {
-      throw new Error()
+      throw new MaxDistanceError()
     }
 
     const checkInOnSameDate = await this.checkInsRepository.findByUserIdOnDate(
@@ -49,7 +51,7 @@ export default class ServiceCheckInRegister {
     )
 
     if (checkInOnSameDate) {
-      throw new Error()
+      throw new MaxNumberOfCheckInsError()
     }
 
     const checkIn = await this.checkInsRepository.create({

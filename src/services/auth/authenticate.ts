@@ -3,8 +3,8 @@ import {
   AuthenticateServiceRequest,
   AuthenticateServiceResponse,
 } from '../interfaces'
-import { InvalidCredentialsError } from '../errors/invalid-credentials'
 import { compare } from 'bcryptjs'
+import { InvalidCredentialsError } from '../errors'
 
 export default class AuthenticateService {
   constructor(private usersRepository: IUsersRepository) {}

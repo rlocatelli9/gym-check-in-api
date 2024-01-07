@@ -16,9 +16,9 @@ sudo service docker start
 - [] Should be able to get check-in history of user
 - [] Should be able to search for nearby gyms
 - [] Should be able to search by gym's name
-- [] Should be able to check-in in one gym
+- [x] Should be able to check-in in one gym
 - [] Should be able to validate the check-in of user
-- [] Should be able to register the Gym
+- [x] Should be able to register the Gym
 
 ## RN (Regras de Negócio)
 

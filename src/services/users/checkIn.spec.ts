@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import ServiceCheckInRegister from './checkIn'
 import FakeCheckInsRepository from 'src/repositories/fake/fake-checkIns-repository'
 import FakeGymsRepository from 'src/repositories/fake/fake-gyms-repository'
-import { Decimal } from '@prisma/client/runtime/library'
+import { MaxDistanceError, MaxNumberOfCheckInsError } from '../errors'
 
 let fakeCheckInsRepository: FakeCheckInsRepository
 let fakeGymsRepository: FakeGymsRepository
@@ -22,8 +22,8 @@ describe('register use case', () => {
       phone: '84999999999',
       title: 'título teste',
       updated_at: new Date(),
-      latitude: new Decimal(-3.7461601),
-      longitude: new Decimal(-38.5176505),
+      latitude: -3.7461601,
+      longitude: -38.5176505,
     })
   })
 
@@ -50,7 +50,7 @@ describe('register use case', () => {
         userLatitude: -3.7471197,
         userLongitude: -38.5183487,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxDistanceError)
   })
 
   it('should not be able to check in twice in the same day', async () => {
@@ -71,7 +71,7 @@ describe('register use case', () => {
           userLatitude: -3.7461601,
           userLongitude: -38.5176505,
         }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxNumberOfCheckInsError)
   })
 
   it('should not be able to check in twice in the different days', async () => {

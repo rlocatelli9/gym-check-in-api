@@ -7,8 +7,14 @@ export default class FakeGymsRepository implements IGymsRepository {
 
   async create(data: Prisma.GymCreateInput) {
     const gym = {
-      ...data,
-      id: data?.id || randomUUID(),
+      id: data?.id ?? randomUUID(),
+      title: data.title,
+      description: data.description ?? null,
+      phone: data.phone ?? null,
+      latitude: new Prisma.Decimal(data.latitude.toString()),
+      longitude: new Prisma.Decimal(data.longitude.toString()),
+      created_at: new Date(),
+      updated_at: new Date(),
     } as Gym
 
     this.gyms.push(gym)

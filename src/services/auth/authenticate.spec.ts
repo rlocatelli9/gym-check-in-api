@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import AuthenticateService from './authenticate'
 import { hash } from 'bcryptjs'
 import FakeUsersRepository from 'src/repositories/fake/fake-users-repository'
-import { InvalidCredentialsError } from '../errors/invalid-credentials'
+import { InvalidCredentialsError } from '../errors'
 
 let fakeUsersRepository: FakeUsersRepository
 // sut => system under test

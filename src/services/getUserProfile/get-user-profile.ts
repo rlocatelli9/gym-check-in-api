@@ -3,7 +3,7 @@ import {
   GetUserProfileServiceRequest,
   GetUserProfileServiceResponse,
 } from '../interfaces'
-import { ResourceNotFoundError } from '../errors/resource-not-found'
+import { ResourceNotFoundError } from '../errors'
 
 export default class GetUserProfileService {
   constructor(private usersRepository: IUsersRepository) {}

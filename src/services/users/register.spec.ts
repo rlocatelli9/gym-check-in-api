@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import ServiceUserRegister from './register'
 import { compare } from 'bcryptjs'
 import FakeUsersRepository from 'src/repositories/fake/fake-users-repository'
-import { UserAlreadyExistsError } from '../errors/user-already-exists'
+import { UserAlreadyExistsError } from '../errors'
 
 let fakeUsersRepository: FakeUsersRepository
 let sut: ServiceUserRegister

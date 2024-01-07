@@ -1,7 +1,7 @@
 import { hash } from 'bcryptjs'
 import { IUsersRepository } from 'src/repositories/interfaces'
-import { UserAlreadyExistsError } from '../errors/user-already-exists'
 import { RegisterServiceProps, RegisterServiceResponse } from '../interfaces'
+import { UserAlreadyExistsError } from '../errors'
 
 // SOLID
 // D - Dependency Inversion Principle

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { hash } from 'bcryptjs'
 import FakeUsersRepository from 'src/repositories/fake/fake-users-repository'
 import GetUserProfileService from './get-user-profile'
-import { ResourceNotFoundError } from '../errors/resource-not-found'
+import { ResourceNotFoundError } from '../errors'
 
 let fakeUsersRepository: FakeUsersRepository
 // sut => system under test
