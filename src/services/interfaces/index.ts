@@ -39,3 +39,11 @@ export type CreateGymServiceProps = {
 export type CreateGymServiceResponse = {
   gym: Gym
 }
+
+export type CheckInsHistoryServiceProps = {
+  userId: string
+  page: number
+}
+export type CheckInsHistoryServiceResponse = {
+  checkIns: CheckIn[]
+}

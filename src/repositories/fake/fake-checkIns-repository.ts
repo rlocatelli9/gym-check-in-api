@@ -38,4 +38,17 @@ export default class FakeCheckInsRepository implements ICheckInsRepository {
 
     return checkInOnSameDate
   }
+
+  async findManyByUserId(userId: string, page: number) {
+    const checkIns = this.checkIns.filter((checkIn) => {
+      if (checkIn.user_id === userId && !!checkIn.validate_at) {
+        return checkIn
+      }
+      return false
+    })
+
+    const pagedCheckIns = checkIns.slice((page - 1) * 20, page * 20)
+
+    return pagedCheckIns
+  }
 }
