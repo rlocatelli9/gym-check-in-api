@@ -40,6 +40,10 @@ export default class FakeCheckInsRepository implements ICheckInsRepository {
   }
 
   async findManyByUserId(userId: string, page: number) {
+    let pageValue = page
+    if (page < 1) {
+      pageValue = 1
+    }
     const checkIns = this.checkIns.filter((checkIn) => {
       if (checkIn.user_id === userId && !!checkIn.validate_at) {
         return checkIn
@@ -47,7 +51,7 @@ export default class FakeCheckInsRepository implements ICheckInsRepository {
       return false
     })
 
-    const pagedCheckIns = checkIns.slice((page - 1) * 20, page * 20)
+    const pagedCheckIns = checkIns.slice((pageValue - 1) * 20, pageValue * 20)
 
     return pagedCheckIns
   }
