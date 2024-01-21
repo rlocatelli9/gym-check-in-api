@@ -8,7 +8,7 @@ let fakeCheckInsRepository: FakeCheckInsRepository
 let fakeGymsRepository: FakeGymsRepository
 let sut: ServiceCheckInRegister
 
-describe('register use case', () => {
+describe('Check-in use case', () => {
   beforeEach(async () => {
     fakeCheckInsRepository = new FakeCheckInsRepository()
     fakeGymsRepository = new FakeGymsRepository()

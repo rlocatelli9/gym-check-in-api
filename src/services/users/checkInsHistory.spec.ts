@@ -5,7 +5,7 @@ import FakeCheckInsRepository from 'src/repositories/fake/fake-checkIns-reposito
 let fakeCheckInsRepository: FakeCheckInsRepository
 let sut: ServiceCheckInsHistory
 
-describe('register use case', () => {
+describe('check-in history use case', () => {
   beforeEach(async () => {
     fakeCheckInsRepository = new FakeCheckInsRepository()
     sut = new ServiceCheckInsHistory(fakeCheckInsRepository)
