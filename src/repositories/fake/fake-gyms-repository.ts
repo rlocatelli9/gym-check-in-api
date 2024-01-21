@@ -31,4 +31,33 @@ export default class FakeGymsRepository implements IGymsRepository {
 
     return gym
   }
+
+  async searchManyByQuery(query: string, page: number) {
+    const querySearch = query.trim().split(';') ?? []
+    let fields = {}
+
+    if (querySearch.length > 0) {
+      querySearch
+        .map((element) => {
+          const [field, value] = element.split('=')
+          return { [field]: value }
+        })
+        .forEach((item) => {
+          fields = { ...fields, ...item }
+        })
+    }
+    let gyms: Gym[] = []
+    Object.entries(fields).forEach(([field, value]) => {
+      gyms = this.gyms.filter((gym) => gym[field as keyof Gym] === value)
+    })
+
+    let pageValue = page
+    if (page < 1) {
+      pageValue = 1
+    }
+
+    const paginatedGyms = gyms.slice((pageValue - 1) * 20, pageValue * 20)
+
+    return paginatedGyms
+  }
 }

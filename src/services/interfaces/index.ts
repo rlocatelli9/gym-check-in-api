@@ -48,9 +48,18 @@ export type CheckInsHistoryServiceResponse = {
   checkIns: CheckIn[]
 }
 
-export type CheckInsMetricsServiceProps = {
+export type CheckInsUserMetricsServiceProps = {
   userId: string
 }
-export type CheckInsMetricsServiceResponse = {
+export type CheckInsUserMetricsServiceResponse = {
   checkInsCount: number
+}
+
+export type SearchGymServiceProps = {
+  query: string
+  page: number
+}
+
+export type SearchGymServiceResponse = {
+  gyms: Gym[]
 }
