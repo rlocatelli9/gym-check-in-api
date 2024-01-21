@@ -47,3 +47,10 @@ export type CheckInsHistoryServiceProps = {
 export type CheckInsHistoryServiceResponse = {
   checkIns: CheckIn[]
 }
+
+export type CheckInsMetricsServiceProps = {
+  userId: string
+}
+export type CheckInsMetricsServiceResponse = {
+  checkInsCount: number
+}

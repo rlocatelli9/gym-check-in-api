@@ -51,4 +51,15 @@ export default class FakeCheckInsRepository implements ICheckInsRepository {
 
     return pagedCheckIns
   }
+
+  async countByUserId(userId: string) {
+    const total = this.checkIns.filter((checkIn) => {
+      if (checkIn.user_id === userId && !!checkIn.validate_at) {
+        return checkIn
+      }
+      return false
+    }).length
+
+    return total
+  }
 }
