@@ -63,3 +63,12 @@ export type SearchGymServiceProps = {
 export type SearchGymServiceResponse = {
   gyms: Gym[]
 }
+
+export type SearchNearbyGymServiceProps = {
+  userLatitude: number
+  userLongitude: number
+}
+
+export type SearchNearbyGymServiceResponse = {
+  gyms: Gym[]
+}

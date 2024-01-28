@@ -1,6 +1,8 @@
 import { Gym, Prisma } from '@prisma/client'
 import { IGymsRepository } from '../interfaces'
 import { randomUUID } from 'node:crypto'
+import { SearchNearbyGymServiceProps } from 'src/services/interfaces'
+import { getDistanceBetweenCoords } from 'src/utils/get-distance-between-coords'
 
 export default class FakeGymsRepository implements IGymsRepository {
   private gyms: Array<Gym> = []
@@ -59,5 +61,22 @@ export default class FakeGymsRepository implements IGymsRepository {
     const paginatedGyms = gyms.slice((pageValue - 1) * 20, pageValue * 20)
 
     return paginatedGyms
+  }
+
+  async findManyNearby(params: SearchNearbyGymServiceProps) {
+    return this.gyms.filter((item) => {
+      const distance = getDistanceBetweenCoords({
+        from: {
+          latitude: params.userLatitude,
+          longitude: params.userLongitude,
+        },
+        to: {
+          latitude: item.latitude.toNumber(),
+          longitude: item.longitude.toNumber(),
+        },
+      })
+
+      return distance < 10
+    })
   }
 }

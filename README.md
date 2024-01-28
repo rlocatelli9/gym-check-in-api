@@ -14,7 +14,7 @@ sudo service docker start
 - [x] Should be able to get the user's profile signed
 - [x] Should be able to get the check-in number for user signed
 - [x] Should be able to get check-in history of user
-- [] Should be able to search for nearby gyms
+- [x] Should be able to search for nearby gyms (until 10 kilometers)
 - [] Should be able to search by gym's name
 - [x] Should be able to check-in in one gym
 - [] Should be able to validate the check-in of user
