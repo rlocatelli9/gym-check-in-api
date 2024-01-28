@@ -13,6 +13,7 @@ export default async function Authenticate(
   })
 
   const { email, password } = authenticate.parse(request.body)
+  console.log({ email, password })
 
   try {
     const authenticateService = makeAuthenticateService()

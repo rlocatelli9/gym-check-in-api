@@ -3,7 +3,12 @@ import fastify from 'fastify'
 import appRoutes from 'src/http/routes'
 import { ZodError } from 'zod'
 
+import cors from '@fastify/cors'
 export const app = fastify()
+
+app.register(cors, {
+  origin: 'http://localhost:3000',
+})
 
 app.register(appRoutes)
 app.setErrorHandler((error, _, reply) => {

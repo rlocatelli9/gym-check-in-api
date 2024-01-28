@@ -4,5 +4,5 @@ import Authenticate from './controllers/Auth/authenticate'
 
 export default async function appRoutes(app: FastifyInstance) {
   app.post('/users', Register)
-  app.post('/sessions', Authenticate)
+  app.post('/authenticate', Authenticate)
 }
