@@ -4,10 +4,15 @@ import appRoutes from 'src/http/routes'
 import { ZodError } from 'zod'
 
 import cors from '@fastify/cors'
+import fastifyJwt from '@fastify/jwt'
 export const app = fastify()
 
 app.register(cors, {
   origin: 'http://localhost:3000',
+})
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET_KEY,
 })
 
 app.register(appRoutes)
