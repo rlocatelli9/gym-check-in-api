@@ -20,6 +20,12 @@ export default class FakeCheckInsRepository implements ICheckInsRepository {
     return checkIn
   }
 
+  async findById(id: string) {
+    const checkIn = this.checkIns.find((checkIn) => checkIn.id === id)
+    if (!checkIn) return null
+    return checkIn
+  }
+
   async findByUserIdOnDate(userId: string, date: Date) {
     const startOfTheDay = dayjs(date).startOf('date')
     const endOfTheDay = dayjs(date).endOf('date')
@@ -65,5 +71,16 @@ export default class FakeCheckInsRepository implements ICheckInsRepository {
     }).length
 
     return total
+  }
+
+  async save(checkIn: CheckIn) {
+    const checkInIndex = this.checkIns.findIndex(
+      (item) => item.id === checkIn.id,
+    )
+    if (checkInIndex === -1) return null
+
+    this.checkIns[checkInIndex] = checkIn
+
+    return checkIn
   }
 }

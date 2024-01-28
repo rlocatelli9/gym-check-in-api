@@ -72,3 +72,11 @@ export type SearchNearbyGymServiceProps = {
 export type SearchNearbyGymServiceResponse = {
   gyms: Gym[]
 }
+
+export type ValidateCheckInServiceProps = {
+  checkInId: string
+}
+
+export type ValidateCheckInServiceResponse = {
+  checkIn: CheckIn
+}
