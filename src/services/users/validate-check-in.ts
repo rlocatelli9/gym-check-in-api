@@ -1,13 +1,10 @@
-import {
-  ICheckInsRepository,
-  IGymsRepository,
-} from 'src/repositories/interfaces'
+import { ICheckInsRepository } from 'src/repositories/interfaces'
 import {
   ValidateCheckInServiceProps,
   ValidateCheckInServiceResponse,
 } from '../interfaces'
-import { getDistanceBetweenCoords } from 'src/utils/get-distance-between-coords'
-import { ResourceNotFoundError } from '../errors'
+import { LateCheckInValidationError, ResourceNotFoundError } from '../errors'
+import dayjs from 'dayjs'
 
 // SOLID
 // D - Dependency Inversion Principle
@@ -22,6 +19,15 @@ export default class ServiceValidateCheckIn {
 
     if (!checkIn) {
       throw new ResourceNotFoundError()
+    }
+
+    const distanceInMinutesFromCheckInCreation = dayjs(new Date()).diff(
+      checkIn.created_at,
+      'minutes',
+    )
+
+    if (distanceInMinutesFromCheckInCreation > 20) {
+      throw new LateCheckInValidationError()
     }
 
     checkIn.validate_at = new Date()

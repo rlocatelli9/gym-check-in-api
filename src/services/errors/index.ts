@@ -1,13 +1,6 @@
-import { InvalidCredentialsError } from './invalid-credentials'
-import { MaxDistanceError } from './max-distance'
-import { MaxNumberOfCheckInsError } from './max-number-of-checkIns'
-import { ResourceNotFoundError } from './resource-not-found'
-import { UserAlreadyExistsError } from './user-already-exists'
-
-export {
-  InvalidCredentialsError,
-  MaxDistanceError,
-  MaxNumberOfCheckInsError,
-  ResourceNotFoundError,
-  UserAlreadyExistsError,
-}
+export { InvalidCredentialsError } from './invalid-credentials'
+export { MaxDistanceError } from './max-distance'
+export { MaxNumberOfCheckInsError } from './max-number-of-checkIns'
+export { ResourceNotFoundError } from './resource-not-found'
+export { UserAlreadyExistsError } from './user-already-exists'
+export { LateCheckInValidationError } from './late-checkIn-validation'
