@@ -12,7 +12,9 @@ export async function NearbyGym(request: FastifyRequest, reply: FastifyReply) {
     }),
   })
 
-  const { latitude, longitude } = searchGymQueryParamsSchema.parse(request.body)
+  const { latitude, longitude } = searchGymQueryParamsSchema.parse(
+    request.query,
+  )
 
   const searchNearbyGymService = makeSearchNearbyGymsService()
 
