@@ -2,6 +2,7 @@ import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { app } from 'src/app'
 import { createAndAuthenticateUser } from 'src/utils/create-and-authenticate-user'
+import { prisma } from 'src/lib/prisma'
 
 describe('Validate Check-in E2E', () => {
   beforeAll(async () => {
@@ -59,5 +60,13 @@ describe('Validate Check-in E2E', () => {
       .send()
 
     expect(validateResponse.statusCode).toEqual(204)
+
+    const checkInOnDB = await prisma.checkIn.findFirstOrThrow({
+      where: {
+        id: checkIn.id,
+      },
+    })
+
+    expect(checkInOnDB.validate_at).toEqual(expect.any(Date))
   })
 })
