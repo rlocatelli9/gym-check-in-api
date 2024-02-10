@@ -24,7 +24,7 @@ jobs:
           node-version: 18
           cache: "npm"
       - run: npm ci
-      - run: npm test:e2e
+      - run: npm run test:e2e
         env:
           DATABASE_URL: "postgresql://docker:docker@localhost:5432/api-gym-check?schema=public"
           JWT_SECRET_KEY: "testing"
