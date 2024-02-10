@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { ROLES } from 'src/@types/fastify-jwt'
+import { ROLES } from 'src/services/interfaces'
 
 export function verifyUserRole(roleToVerify: ROLES) {
   return async (request: FastifyRequest, reply: FastifyReply) => {

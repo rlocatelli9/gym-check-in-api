@@ -1,6 +1,5 @@
 import '@fastify/jwt'
-
-export type ROLES = 'ADMIN' | 'MANAGER' | 'MEMBER'
+import { ROLES } from 'src/services/interfaces'
 
 declare module '@fastify/jwt' {
   export interface FastifyJWT {

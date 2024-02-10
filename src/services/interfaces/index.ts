@@ -1,5 +1,7 @@
 import { CheckIn, Gym, User } from '@prisma/client'
 
+export type ROLES = 'ADMIN' | 'MANAGER' | 'MEMBER'
+
 type PatternRequest = {
   email: string
   password: string
@@ -9,7 +11,10 @@ type PatternResponse = {
   user: User
 }
 
-export type RegisterServiceProps = PatternRequest & { name: string }
+export type RegisterServiceProps = PatternRequest & {
+  name: string
+  role?: ROLES
+}
 export type RegisterServiceResponse = PatternResponse
 
 export type AuthenticateServiceRequest = PatternRequest

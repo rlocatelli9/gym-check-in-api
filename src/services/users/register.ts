@@ -13,6 +13,7 @@ export default class ServiceUserRegister {
     name,
     email,
     password,
+    role = 'MEMBER',
   }: RegisterServiceProps): Promise<RegisterServiceResponse> {
     const passwordHash = await hash(password, 6)
 
@@ -26,6 +27,7 @@ export default class ServiceUserRegister {
       name,
       email,
       password_hash: passwordHash,
+      role,
     })
 
     return { user }
