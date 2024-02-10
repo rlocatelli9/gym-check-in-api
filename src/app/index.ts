@@ -5,6 +5,7 @@ import { ZodError } from 'zod'
 
 import cors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
+import fastifyCookie from '@fastify/cookie'
 export const app = fastify()
 
 app.register(cors, {
@@ -13,7 +14,16 @@ app.register(cors, {
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET_KEY,
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
+  },
+  sign: {
+    expiresIn: '10m',
+  },
 })
+
+app.register(fastifyCookie)
 
 app.register(appRoutes)
 app.setErrorHandler((error, _, reply) => {
